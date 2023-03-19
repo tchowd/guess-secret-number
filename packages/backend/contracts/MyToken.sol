@@ -11,7 +11,7 @@ contract MyToken is ERC20 {
     // Takes an initial supply and a destination address as parameters
     constructor(uint256 initialSupply, address destination) ERC20("My Token", "MTK") {
     // Mint the initial supply of tokens and assign them to the destination address
-    _mint(destination, initialSupply);
+    _mint(msg.sender, initialSupply);
 
     }
 }   

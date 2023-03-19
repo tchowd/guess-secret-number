@@ -1,7 +1,7 @@
 {
   "_format": "hh-zksolc-artifact-1",
-  "contractName": "GuessTheNumberGame",
-  "sourceName": "contracts/GuessTheNumberGame.sol",
+  "contractName": "GuessTheNumberGameHard",
+  "sourceName": "contracts/GuessTheNumberGameHard.sol",
   "abi": [
     {
       "inputs": [

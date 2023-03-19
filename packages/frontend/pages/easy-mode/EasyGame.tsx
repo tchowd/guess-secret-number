@@ -8,7 +8,7 @@ import { useBalance } from 'wagmi'
 import { Box, Center, Text, FormControl, FormLabel, Input, Button, Heading, Grid, GridItem } from "@chakra-ui/react";
 
 
-const contractAddress = '0x6B30f096A2F60b9094754166C58eC26C7627A3c9' 
+const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' 
 const contractAbi = GuessTheNumberGameEasy.abi 
 
 export default function EasyGame() {

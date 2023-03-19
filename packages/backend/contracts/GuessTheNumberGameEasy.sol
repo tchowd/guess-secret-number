@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "./MyToken.sol";
 
 // Contract for a simple "Guess the Number" game with ERC-20 token rewards
-contract GuessTheNumberGame {
+contract GuessTheNumberGameEasy {
     bytes32 secretNumber; // The hashed secret number players need to guess
     address payable owner; // Owner of the game
     MyToken public token; // ERC-20 token used as rewards for winners
@@ -47,7 +47,7 @@ contract GuessTheNumberGame {
 
             // Generate a new secret number
             uint256 randomtime = block.timestamp;
-            uint256 newNumber = randomtime % 100;
+            uint256 newNumber = randomtime % 11;
             bytes32 newSecretNumber = hashNumber(newNumber);
             changeSecretNumber(newSecretNumber);
         } else {
