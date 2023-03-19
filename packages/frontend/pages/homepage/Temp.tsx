@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
-import GuessTheNumberGame from '../../../backend/artifacts-zk/contracts/GuessTheNumberGame.sol/GuessTheNumberGame.json'
-// import { Contract, providers } from 'ethers'
+import GuessTheNumberGameEasy from '../../../backend/artifacts-zk/contracts/GuessTheNumberGameEasy.sol/GuessTheNumberGameEasy.json'
 import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
-import hashValue from './NumberConverter'
 import { toUtf8Bytes } from 'ethers/lib/utils';
-import {useAccount} from 'wagmi'
+import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { fetchBalance } from '@wagmi/core'
 import { useBalance } from 'wagmi'
 
 
-const contractAddress = '0xfE2322deb96BdFeFFB1acd70d3a47dF944749D34' 
-const contractAbi = GuessTheNumberGame.abi 
+const contractAddress = '0x6B30f096A2F60b9094754166C58eC26C7627A3c9' 
+const contractAbi = GuessTheNumberGameEasy.abi 
 
 export default function GetHashComponent() {
   const { address, connector, isConnected } = useAccount()
@@ -32,7 +30,9 @@ export default function GetHashComponent() {
   const [guess, setGuess] = useState<string>('');
   const [newSecretNumber, setNewSecretNumber] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [transferProof, setTransferProof] = useState<string>('');
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       const tokenBalance = await contract.getTokenBalance();
@@ -42,7 +42,10 @@ export default function GetHashComponent() {
       setContractBalance(contractBalance.toString());
       setSecretNumberHash(secretNumberHash.toString());
     };
-    fetchData();
+    
+    if (isConnected) {
+      fetchData();
+    }
 
     contract.on('Winner', (player: string, value: ethers.BigNumber, tokens: ethers.BigNumber) => {
       setMessage(`Congratulations ${player}! You won ${ethers.utils.formatEther(value)} ETH and ${ethers.utils.formatUnits(tokens)} tokens!`);
@@ -57,21 +60,25 @@ export default function GetHashComponent() {
     };
   }, []);
 
-
   const handleGuessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGuess(event.target.value);
   };
+
+  const parsedPayment = payment > 0 ? payment.toString() : '0.001';
+  const guessAmount = ethers.utils.parseEther(parsedPayment);
 
   const handleGuessSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const guessNumber = parseInt(guess);
-      await contract.play(guessNumber, { value: ethers.utils.parseEther('0.001') });
+      await contract.play(guessNumber, { value: guessAmount });
+      // setMessage('Your guess has been submitted successfully.');
     } catch (error) {
-      setMessage('Failed to play the game.');
+      setMessage('Failed to play the game. Please try again later.');
     }
     setGuess('');
   };
+
 
   const handleNewSecretNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewSecretNumber(event.target.value);
@@ -80,14 +87,21 @@ export default function GetHashComponent() {
   const handleSecretNumberSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      await contract.changeSecretNumber(newSecretNumber);
+      // Convert the newSecretNumber string to a hex string
+      const hexSecretNumber = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(newSecretNumber));
+      // Pad the hex string to make it a bytes32 value
+      const paddedHexSecretNumber = ethers.utils.hexZeroPad(hexSecretNumber, 32);
+      // Hash the padded hex string
+      const labelhash = ethers.utils.solidityKeccak256(["bytes32"], [paddedHexSecretNumber]);
+      console.log(labelhash);
+      await contract.changeSecretNumber(labelhash);
       setMessage('The secret number has been changed!');
     } catch (error) {
+      console.log(error);
       setMessage('Failed to change the secret number. Make sure you are the owner of the contract.');
     }
     setNewSecretNumber('');
   };
-
 
 
   return(isConnected) ? (
@@ -109,12 +123,22 @@ export default function GetHashComponent() {
                 Guess a number between 0 and 99:
                 <input type="number" value={guess} onChange={handleGuessChange} />
               </label>
+              <div>
+            <h1>payment:</h1>
+            <input type="number" value={payment} onChange={(event) => setPayment(Number(event.target.value))} />
+          </div>
+
               <button type="submit">Play</button>
             </form>
             {/* {message && <p>{message}</p>} */}
             
             </div>
-            -------------------
+            ----------------
+            <div>
+            {message && <p>{message}</p>}
+
+            </div>
+            -----------------
             <div>
             <form onSubmit={handleSecretNumberSubmit}>
               <label>
@@ -123,11 +147,6 @@ export default function GetHashComponent() {
               </label>
               <button type="submit">Change Secret Number</button>
             </form>
-            </div>
-            ----------------
-            <div>
-            {message && <p>{message}</p>}
-
             </div>
 
 
