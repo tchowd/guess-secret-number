@@ -103,10 +103,10 @@ setNewSecretNumber('');
 
 return (isConnected) ? (
     <>
-      <Center h="100vh" 
+      <Center marginTop={'5rem'} marginBottom={'10rem'} 
         bgGradient='linear-gradient(90deg, rgba(21,39,101,1) 7%, rgba(47,17,68,1) 14%, rgba(18,9,38,1) 23%, rgba(18,20,42,1) 31%, rgba(1,1,1,1) 49%, rgba(0,0,0,1) 50%, rgba(1,1,3,1) 50%, rgba(18,20,42,1) 67%, rgba(18,9,38,1) 76%, rgba(47,17,68,1) 84%, rgba(21,39,101,1) 91%)'
         color="white">
-        <Box p="4" maxW="md" borderWidth="1px" borderRadius="lg" boxShadow="xl">
+        <Box padding={'5rem'} borderWidth="2px" borderRadius="lg" boxShadow="xl" _hover={{borderColor: '#8887EE'}}>
           <Heading mb="6" textAlign="center">Guess The Number Game</Heading>
           <Grid templateColumns="repeat(2, 1fr)" gap={6}>
             <GridItem colSpan={1}>
@@ -126,7 +126,7 @@ return (isConnected) ? (
             <GridItem colSpan={1}>
               <form onSubmit={handleGuessSubmit}>
                 <FormControl mb="4">
-                  <FormLabel>Guess a number between 0 and 99</FormLabel>
+                  <FormLabel>Guess a number between 0 to 99</FormLabel>
                   <Input type="number" value={guess} onChange={handleGuessChange} />
                 </FormControl>
                 <FormControl mb="4">

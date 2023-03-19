@@ -23,27 +23,30 @@ function SelectGame() {
             fontWeight='extrabold'>
                 Select Game to Play
             </Heading>
-
+            <Link href='/about' textDecoration={'none'} _hover={{textDecoration: 'none'}}>
+            <Button
+              borderRadius={'2rem'}
+              height={'3rem'}
+              px={6}
+              bgGradient='linear-gradient(90deg, rgba(137,135,238,1) 40%, rgba(99,100,180,1) 71%, rgba(86,88,160,1) 83%)'
+              textDecoration={'none'}
+              borderColor={'white'}
+              transition="all 0.1s ease-out"
+               _hover={{  boxShadow: "0 0 20px white" , color: 'white'}}>
+              Instructions
+            </Button>
+            </Link>
             <HStack>
             <Link href='/easy-mode' _hover={{textDecoration: 'none'}}>
-                <Box 
-                marginRight={'2rem'}
-                padding={'3rem'}
-                transition="all 0.1s ease-out"
-                _hover={{  boxShadow: "0 0 20px white" }}
-                bgGradient='linear-gradient(90deg, rgba(137,135,238,1) 40%, rgba(99,100,180,1) 71%, rgba(86,88,160,1) 83%)' 
-                height={'12rem'} width={'25rem'} color='white' borderRadius={'2rem'} >
+                <Box padding={'3rem'} borderWidth="2px" borderRadius="lg" boxShadow="xl" color='white'
+                     _hover={{borderColor: '#8887EE'}} marginRight={'3rem'}>
                     <Text fontSize={'3xl'} as='b'> Easy Mode </Text>
                     <Text> Select a number between 0 - 10 </Text>
                 </Box>
             </Link>
             <Link href='hard-mode' _hover={{textDecoration: 'none'}}>
-                <Box 
-                padding={'3rem'}
-                transition="all 0.1s ease-out"
-                _hover={{  boxShadow: "0 0 20px white" }}
-                bgGradient='linear-gradient(90deg, rgba(137,135,238,1) 40%, rgba(99,100,180,1) 71%, rgba(86,88,160,1) 83%)' 
-                height={'12rem'} width={'25rem'} color='white' borderRadius={'2rem'} >
+                <Box padding={'3rem'} borderWidth="2px" borderRadius="lg" boxShadow="xl" color='white'
+                     _hover={{borderColor: '#8887EE'}}>
                     <Text fontSize={'3xl'} as='b'> Hard Mode </Text>
                     <Text> Select a number between 0 - 99 </Text>
                 </Box>
