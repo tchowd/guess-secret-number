@@ -17,12 +17,11 @@ import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { useIsMounted } from '../hooks';
 
 const { chains, provider, webSocketProvider } = configureChains(
-  [ zkSyncTestnet],
-  [publicProvider()]
+  [ zkSyncTestnet], [publicProvider()]
 );
 
 const { connectors } = getDefaultWallets({
-  appName: 'create-web3',
+  appName: 'Secret Guess Game',
   chains,
 });
 
