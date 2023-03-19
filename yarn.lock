@@ -304,6 +304,13 @@
   dependencies:
     "@chakra-ui/shared-utils" "2.0.5"
 
+"@chakra-ui/icons@^2.0.17":
+  version "2.0.17"
+  resolved "https://registry.npmjs.org/@chakra-ui/icons/-/icons-2.0.17.tgz"
+  integrity sha512-HMJP0WrJgAmFR9+Xh/CBH0nVnGMsJ4ZC8MK6tMgxPKd9/muvn0I4hsicHqdPlLpmB0TlxlhkBAKaVMtOdz6F0w==
+  dependencies:
+    "@chakra-ui/icon" "3.0.16"
+
 "@chakra-ui/image@2.0.15":
   version "2.0.15"
   resolved "https://registry.npmjs.org/@chakra-ui/image/-/image-2.0.15.tgz"
@@ -922,6 +929,7 @@
   version "0.1.0"
   resolved "file:packages/frontend"
   dependencies:
+    "@chakra-ui/icons" "^2.0.17"
     "@chakra-ui/react" "^2.4.9"
     "@emotion/react" "^11.10.5"
     "@emotion/styled" "^11.10.5"
@@ -932,6 +940,7 @@
     react "^18.2.0"
     react-dom "^18.2.0"
     wagmi "^0.11.3"
+    zksync-web3 "^0.13.4"
 
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
@@ -6628,6 +6637,11 @@ react-focus-lock@^2.9.2:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
+react-icons@^4.8.0:
+  version "4.8.0"
+  resolved "https://registry.npmjs.org/react-icons/-/react-icons-4.8.0.tgz"
+  integrity sha512-N6+kOLcihDiAnj5Czu637waJqSnwlMNROzVZMhfX68V/9bu9qHaMIJC4UdozWoOk57gahFCNHwVvWzm0MTzRjg==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -7965,12 +7979,7 @@ yocto-queue@^0.1.0:
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-0.1.0.tgz"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zksync-web3@^0.13.1:
-  version "0.13.4"
-  resolved "https://registry.npmjs.org/zksync-web3/-/zksync-web3-0.13.4.tgz"
-  integrity sha512-AjCKhn9TRqsk2T9VLKxlod22rnVWOWGOjq+QXppFe2yTxZx9dVaai325OJ0aa7a3m5wx+9yhPqBu23jG2xPo5Q==
-
-zksync-web3@^0.13.4:
+zksync-web3@^0.13.1, zksync-web3@^0.13.4:
   version "0.13.4"
   resolved "https://registry.npmjs.org/zksync-web3/-/zksync-web3-0.13.4.tgz"
   integrity sha512-AjCKhn9TRqsk2T9VLKxlod22rnVWOWGOjq+QXppFe2yTxZx9dVaai325OJ0aa7a3m5wx+9yhPqBu23jG2xPo5Q==
