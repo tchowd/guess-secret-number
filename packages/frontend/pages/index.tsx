@@ -54,7 +54,13 @@ export default function Home() {
               </Button>
             </Link>
           </Stack>
+          <Box marginBottom='50rem'>
+            <Text color='white'>Built by{' '}
+                <Link href='https://twitter.com/tchowd_' textDecoration={'none'}>Turja Chowdhury</Link>
+            </Text>
+        </Box>
         </Stack>
+        
       </Container>
     </Box>
   );

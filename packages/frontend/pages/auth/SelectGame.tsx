@@ -1,4 +1,4 @@
-import { Container, Stack, Heading, Button, Box, Link, Text, HStack, Center } from '@chakra-ui/react'
+import { Container, Stack, Heading, Button, Box, Link, Text, HStack, Center, VStack } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import { useAccount } from 'wagmi'
@@ -58,23 +58,24 @@ function SelectGame() {
     </div>
   ) :(
     <div>
-         <Box 
-    bgGradient='linear-gradient(90deg, rgba(21,39,101,1) 7%, rgba(47,17,68,1) 14%, rgba(18,9,38,1) 23%, rgba(18,20,42,1) 31%, rgba(1,1,1,1) 49%, rgba(0,0,0,1) 50%, rgba(1,1,3,1) 50%, rgba(18,20,42,1) 67%, rgba(18,9,38,1) 76%, rgba(47,17,68,1) 84%, rgba(21,39,101,1) 91%)'>
-      {/* 12142A */}
      <Container maxW={'5xl'} marginTop={'10rem'}>
         <Stack
           textAlign={'center'}
           align={'center'}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 20, md: 28 }}>
-          <Box bg='tomato' height={'25rem'} width={'25rem'} color='white' borderRadius={'2rem'} >
-            <Center paddingTop={'10rem'}>
+            <Center paddingTop={'2rem'}>
+
+            <Box padding={'3rem'} borderWidth="2px" borderRadius="lg" boxShadow="xl" color='white' _hover={{borderColor: '#8887EE'}}>            
+            <VStack>
+                <Text size='md' marginBottom={'1rem'}> Please connect to your wallet and the zkSync Testnet.</Text>
             <ConnectButton />   
-            </Center>
+            </VStack>
         </Box>
+        </Center>
+
         </Stack>
       </Container>
-    </Box>
     </div>
   )
 }
