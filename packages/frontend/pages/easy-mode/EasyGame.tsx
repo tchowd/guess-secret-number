@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
-import GuessTheNumberGameEasy from '../../../backend/artifacts-zk/contracts/GuessTheNumberGameEasy.sol/GuessTheNumberGameEasy.json'
+import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
 import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
 import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
