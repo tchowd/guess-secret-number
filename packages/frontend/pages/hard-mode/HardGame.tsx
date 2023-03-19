@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
-import GuessTheNumberGameHard from '../../contracts/GuessTheNumberGameHard.json'
+import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
 import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
 import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useBalance } from 'wagmi'
-import { Box, Center, Text, FormControl, FormLabel, Input, Button, Heading, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Link, GridItem, Text, Container, useDisclosure, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Divider } from "@chakra-ui/react";
+import ChangeSecretNumber from './ChangeSecretNumber';
 
 
-const contractAddress = '0x369e29573526Da40025a8f9140ecd67c3ef09003' 
-const contractAbi = GuessTheNumberGameHard.abi 
+const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' 
+const contractAbi = GuessTheNumberGameEasy.abi 
 
 export default function HardGame() {
   const { address, connector, isConnected } = useAccount()
@@ -27,9 +28,7 @@ export default function HardGame() {
   const [contractBalance, setContractBalance] = useState<string>('');
   const [secretNumberHash, setSecretNumberHash] = useState<string>('');
   const [guess, setGuess] = useState<string>('');
-  const [newSecretNumber, setNewSecretNumber] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [transferProof, setTransferProof] = useState<string>('');
 
  
   useEffect(() => {
@@ -69,37 +68,17 @@ export default function HardGame() {
   const handleGuessSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const guessNumber = parseInt(guess);
-      await contract.play(guessNumber, { value: guessAmount });
-  // setMessage('Your guess has been submitted successfully.');
-} catch (error) {
-  setMessage('Failed to play the game. Please try again later.');
-}
-setGuess('');
-};
+        const guessNumber = parseInt(guess);
+        await contract.play(guessNumber, { value: guessAmount });
+        setMessage('Your guess has been submitted successfully. Please wait a few moments for the transaction to process.', );
+    } catch (error) {
+        setMessage('Failed to play the game. Please try again later.');
+    }
+        setGuess('');
+    };
 
-const handleNewSecretNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-setNewSecretNumber(event.target.value);
-};
 
-const handleSecretNumberSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-event.preventDefault();
-try {
-// Convert the newSecretNumber string to a hex string
-const hexSecretNumber = ethers.utils.hexlify(ethers.utils.toUtf8Bytes(newSecretNumber));
-// Pad the hex string to make it a bytes32 value
-const paddedHexSecretNumber = ethers.utils.hexZeroPad(hexSecretNumber, 32);
-// Hash the padded hex string
-const labelhash = ethers.utils.solidityKeccak256(["bytes32"], [paddedHexSecretNumber]);
-console.log(labelhash);
-await contract.changeSecretNumber(labelhash);
-setMessage('The secret number has been changed!');
-} catch (error) {
-console.log(error);
-setMessage('Failed to change the secret number. Make sure you are the owner of the contract.');
-}
-setNewSecretNumber('');
-};
+
 
 return (isConnected) ? (
     <>
@@ -107,25 +86,30 @@ return (isConnected) ? (
         bgGradient='linear-gradient(90deg, rgba(21,39,101,1) 7%, rgba(47,17,68,1) 14%, rgba(18,9,38,1) 23%, rgba(18,20,42,1) 31%, rgba(1,1,1,1) 49%, rgba(0,0,0,1) 50%, rgba(1,1,3,1) 50%, rgba(18,20,42,1) 67%, rgba(18,9,38,1) 76%, rgba(47,17,68,1) 84%, rgba(21,39,101,1) 91%)'
         color="white">
         <Box padding={'5rem'} borderWidth="2px" borderRadius="lg" boxShadow="xl" _hover={{borderColor: '#8887EE'}}>
-          <Heading mb="6" textAlign="center">Guess The Number Game</Heading>
-          <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-            <GridItem colSpan={1}>
-              <FormControl mb="4">
+        <Container>
+          <Heading mb="6" textAlign="center">Guess the Secret Number</Heading>
+          <Text mb='5'>Confused? {' '}
+            <Link href='/about'>Click here for more information.</Link>
+          </Text>
+                <VStack>
+              <FormControl mb="1">
                 <FormLabel>Contract balance</FormLabel>
                 <Input value={contractBalance} isDisabled />
               </FormControl>
-              <FormControl mb="4">
+              <FormControl mb="1">
                 <FormLabel>User balance</FormLabel>
                 <Input value={`${data?.formatted} ${data?.symbol}`} isDisabled />
               </FormControl>
-              <FormControl mb="4">
+              <FormControl mb="1" >
                 <FormLabel>Secret hash</FormLabel>
-                <Input value={secretNumberHash} isDisabled />
+                <Input  value={secretNumberHash} isDisabled />
               </FormControl>
-            </GridItem>
-            <GridItem colSpan={1}>
+              </VStack>
+
+              <Divider mt='10' mb='10'/>
+
               <form onSubmit={handleGuessSubmit}>
-                <FormControl mb="4">
+                <FormControl mb="4" mt='4'>
                   <FormLabel>Guess a number between 0 to 99</FormLabel>
                   <Input type="number" value={guess} onChange={handleGuessChange} />
                 </FormControl>
@@ -136,19 +120,19 @@ return (isConnected) ? (
                 <Button mt="4" colorScheme="purple" type="submit">Play</Button>
                 {message && <Text mt="4">{message}</Text>}
               </form>
-            </GridItem>
-          </Grid>
-          <form onSubmit={handleSecretNumberSubmit}>
-            <FormControl mt="6">
-              <FormLabel>Enter a new secret number</FormLabel>
-              <Input type="text" value={newSecretNumber} onChange={handleNewSecretNumberChange} />
-            </FormControl>
-            <Button mt="4" colorScheme="purple" type="submit">Change Secret Number</Button>
-          </form>
+            
+            <Divider mt='10' mb='10'/>
+
+              <ChangeSecretNumber />
+          
+          </Container>
         </Box>
+       
+        
       </Center>
     </>
   ) : (
     <ConnectButton />
   )
 }
+
