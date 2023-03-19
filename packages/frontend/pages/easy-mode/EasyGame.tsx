@@ -69,14 +69,14 @@ export default function EasyGame() {
   const handleGuessSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const guessNumber = parseInt(guess);
-      await contract.play(guessNumber, { value: guessAmount });
-  // setMessage('Your guess has been submitted successfully.');
-} catch (error) {
-  setMessage('Failed to play the game. Please try again later.');
-}
-setGuess('');
-};
+        const guessNumber = parseInt(guess);
+        await contract.play(guessNumber, { value: guessAmount });
+        setMessage('Your guess has been submitted successfully. Please wait a few moments for the transaction to process.', );
+    } catch (error) {
+        setMessage('Failed to play the game. Please try again later.');
+    }
+        setGuess('');
+    };
 
 const handleNewSecretNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 setNewSecretNumber(event.target.value);
@@ -103,10 +103,10 @@ setNewSecretNumber('');
 
 return (isConnected) ? (
     <>
-      <Center h="100vh" 
+      <Center marginTop={'5rem'} marginBottom={'10rem'} 
         bgGradient='linear-gradient(90deg, rgba(21,39,101,1) 7%, rgba(47,17,68,1) 14%, rgba(18,9,38,1) 23%, rgba(18,20,42,1) 31%, rgba(1,1,1,1) 49%, rgba(0,0,0,1) 50%, rgba(1,1,3,1) 50%, rgba(18,20,42,1) 67%, rgba(18,9,38,1) 76%, rgba(47,17,68,1) 84%, rgba(21,39,101,1) 91%)'
         color="white">
-        <Box p="4" maxW="md" borderWidth="1px" borderRadius="lg" boxShadow="xl">
+        <Box padding={'5rem'} borderWidth="1px" borderRadius="lg" boxShadow="xl">
           <Heading mb="6" textAlign="center">Guess The Number Game</Heading>
           <Grid templateColumns="repeat(2, 1fr)" gap={6}>
             <GridItem colSpan={1}>
