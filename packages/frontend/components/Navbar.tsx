@@ -13,7 +13,6 @@ import {
     HamburgerIcon,
     CloseIcon,
   } from '@chakra-ui/icons';
-  import { FaGithub } from 'react-icons/fa'
   
   export default function Navbar() {
     const { isOpen, onToggle } = useDisclosure();
