@@ -19,31 +19,35 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   const initialSupply = 100000;
   const address = deployer.zkWallet.address;
-  const labelhash = '0xdf6966c971051c3d54ec59162606531493a51404a002842f56009d7e5cf4a8c7';
-  // const randomNumber: number = Math.floor(Math.random() * 99) + 1;
-  // console.log(randomNumber);
-  // const labelhash = ethers.utils.solidityKeccak256(["uint256"], [randomNumber])
+
+  const randomNumberEasy: number = Math.floor(Math.random() * 11);
+  console.log(randomNumberEasy);
+  const hashEasy = ethers.utils.solidityKeccak256(["uint256"], [randomNumberEasy])
+
+  const randomNumberHard: number = Math.floor(Math.random() * 100);
+  console.log(randomNumberHard);
+  const hashHard = ethers.utils.solidityKeccak256(["uint256"], [randomNumberHard])
   
   const guessGameArtifactEasy = await deployer.loadArtifact("GuessTheNumberGameEasy");
   const guessGameArtifactHard = await deployer.loadArtifact("GuessTheNumberGameHard");
   const myTokenArtifact = await deployer.loadArtifact("MyToken");
   const converToHashArtifact = await deployer.loadArtifact("ConvertToHash");
 
-  const guessTheNumberGameEasy = await deployer.deploy(guessGameArtifactEasy, [labelhash]);
-  const guessTheNumberGameHard = await deployer.deploy(guessGameArtifactHard, [labelhash]);
+  const guessTheNumberGameEasy = await deployer.deploy(guessGameArtifactEasy, [hashEasy]);
+  const guessTheNumberGameHard = await deployer.deploy(guessGameArtifactHard, [hashHard]);
   const token = await deployer.deploy(myTokenArtifact, [initialSupply, address]);
   const conversion = await deployer.deploy(converToHashArtifact);
 
   // Show the contract info.
   const numGameAddressEasy = guessTheNumberGameEasy.address;
   console.log(`${guessGameArtifactEasy.contractName} was deployed to ${numGameAddressEasy}`);
-  const deploymentFeeGuessNumGameEasy = await deployer.estimateDeployFee(guessGameArtifactEasy, [labelhash]);
+  const deploymentFeeGuessNumGameEasy = await deployer.estimateDeployFee(guessGameArtifactEasy, [hashEasy]);
   const parsedFeeGuessNumGameEasy = ethers.utils.formatEther(deploymentFeeGuessNumGameEasy.toString());
   console.log(`The deployment is estimated to cost ${parsedFeeGuessNumGameEasy} ETH`);
 
   const numGameAddressHard = guessTheNumberGameHard.address;
   console.log(`${guessGameArtifactHard.contractName} was deployed to ${numGameAddressHard}`);
-  const deploymentFeeGuessNumGameHard = await deployer.estimateDeployFee(guessGameArtifactHard, [labelhash]);
+  const deploymentFeeGuessNumGameHard = await deployer.estimateDeployFee(guessGameArtifactHard, [hashHard]);
   const parsedFeeGuessNumGameHard = ethers.utils.formatEther(deploymentFeeGuessNumGameHard.toString());
   console.log(`The deployment is estimated to cost ${parsedFeeGuessNumGameHard} ETH`);
 

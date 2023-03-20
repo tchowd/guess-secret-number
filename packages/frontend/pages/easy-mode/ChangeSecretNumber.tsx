@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
 import { useAccount } from 'wagmi'
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' //change w/deployed smart contract address
+const contractAddress = '0x5ab0c549ceC176Fde1bBd349Ba994b118FCEa606' //change w/deployed smart contract address
 const contractAbi = GuessTheNumberGameEasy.abi 
 
 function ChangeSecretNumber() {

@@ -1,13 +1,13 @@
 import { Button, FormControl, Text, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, VStack } from '@chakra-ui/react'
 import React from 'react'
-import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
+import GuessTheNumberGameHard from '../../contracts/GuessTheNumberGameHard.json'
 import { Contract, Web3Provider } from "zksync-web3";
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
 import { useAccount } from 'wagmi'
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' //change w/deployed smart contract address
-const contractAbi = GuessTheNumberGameEasy.abi 
+const contractAddress = '0xC2f4071B517ac2B38E8d10439307A04F4Ce8420e' //change w/deployed smart contract address
+const contractAbi = GuessTheNumberGameHard.abi 
 
 function ChangeSecretNumber() {
     const { isConnected } = useAccount()

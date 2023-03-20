@@ -9,7 +9,7 @@ import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Li
 import ChangeSecretNumber from './ChangeSecretNumber';
 
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' //change w/deployed smart contract address
+const contractAddress = '0x5ab0c549ceC176Fde1bBd349Ba994b118FCEa606' //change w/deployed smart contract address
 const contractAbi = GuessTheNumberGameEasy.abi 
 
 export default function EasyGame() {
