@@ -40,7 +40,7 @@ export default function Home() {
                 Get Started
               </Button>
             </Link>
-            <Link href='https://github.com/tchowd' textDecoration={'none'} _hover={{textDecoration: 'none'}}>
+            <Link href='https://github.com/tchowd/guess-secret-number' textDecoration={'none'} _hover={{textDecoration: 'none'}}>
               <Button
                 borderRadius={'2rem'}
                 height={'3rem'}

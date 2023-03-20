@@ -1,21 +1,20 @@
-import { Button, FormControl, Text, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, VStack } from '@chakra-ui/react'
+import { Button, FormControl, Text, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, useDisclosure, VStack } from '@chakra-ui/react'
 import React from 'react'
 import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
-import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
+import { Contract, Web3Provider } from "zksync-web3";
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
 import { useAccount } from 'wagmi'
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' 
+const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' //change w/deployed smart contract address
 const contractAbi = GuessTheNumberGameEasy.abi 
 
 function ChangeSecretNumber() {
-    const { address, connector, isConnected } = useAccount()
+    const { isConnected } = useAccount()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [secretNumberHash, setSecretNumberHash] = useState<string>('');
     const [newSecretNumber, setNewSecretNumber] = useState<string>('');
     const [changedMessage, setChangedMessage] = useState<string>('');
-    const provider = new Provider('https://zksync2-testnet.zksync.dev');
     const signer = new Web3Provider((window as any).ethereum).getSigner();
     const contract = new Contract(
       contractAddress,

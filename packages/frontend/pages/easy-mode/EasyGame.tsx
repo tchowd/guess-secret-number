@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
 import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
-import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
+import { Contract, Web3Provider } from "zksync-web3";
 import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useBalance } from 'wagmi'
-import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Link, GridItem, Text, Container, useDisclosure, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Divider } from "@chakra-ui/react";
+import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Link, Text, Container, Divider } from "@chakra-ui/react";
 import ChangeSecretNumber from './ChangeSecretNumber';
 
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' 
+const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' //change w/deployed smart contract address
 const contractAbi = GuessTheNumberGameEasy.abi 
 
 export default function EasyGame() {
   const { address, connector, isConnected } = useAccount()
   const { data, isError, isLoading } = useBalance({ address })
   const [payment, setPayment] = useState<number>(0)
-  const provider = new Provider('https://zksync2-testnet.zksync.dev');
   const signer = new Web3Provider((window as any).ethereum).getSigner();
   const contract = new Contract(
     contractAddress,
@@ -78,8 +77,6 @@ export default function EasyGame() {
     };
 
 
-
-
 return (isConnected) ? (
     <>
       <Center marginTop={'5rem'} marginBottom={'10rem'} 
@@ -91,7 +88,6 @@ return (isConnected) ? (
           <Text mb='5'>Confused? {' '}
             <Link href='/about'>Click here for more information.</Link>
           </Text>
-
                 <VStack>
               <FormControl mb="1">
                 <FormLabel>Contract balance</FormLabel>
@@ -125,11 +121,8 @@ return (isConnected) ? (
             <Divider mt='10' mb='10'/>
 
               <ChangeSecretNumber />
-          
           </Container>
         </Box>
-       
-        
       </Center>
     </>
   ) : (

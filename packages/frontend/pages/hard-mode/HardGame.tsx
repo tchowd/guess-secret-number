@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react'
 import * as ethers from 'ethers'
-import GuessTheNumberGameEasy from '../../contracts/GuessTheNumberGameEasy.json'
+import GuessTheNumberGameHard from '../../contracts/GuessTheNumberGameHard.json'
 import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
 import { useAccount } from 'wagmi'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useBalance } from 'wagmi'
-import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Link, GridItem, Text, Container, useDisclosure, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Divider } from "@chakra-ui/react";
+import { Box, Center, VStack, FormControl, FormLabel, Input, Button, Heading, Link, Text, Container, Divider } from "@chakra-ui/react";
 import ChangeSecretNumber from './ChangeSecretNumber';
 
 
-const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' 
-const contractAbi = GuessTheNumberGameEasy.abi 
+const contractAddress = '0x09Aa0332881decb35a00f9367d906f5E245401Aa' // change w/deployed smart contract address
+const contractAbi = GuessTheNumberGameHard.abi 
 
 export default function HardGame() {
   const { address, connector, isConnected } = useAccount()
   const { data, isError, isLoading } = useBalance({ address })
   const [payment, setPayment] = useState<number>(0)
-  const provider = new Provider('https://zksync2-testnet.zksync.dev');
   const signer = new Web3Provider((window as any).ethereum).getSigner();
   const contract = new Contract(
     contractAddress,
@@ -77,9 +76,6 @@ export default function HardGame() {
         setGuess('');
     };
 
-
-
-
 return (isConnected) ? (
     <>
       <Center marginTop={'5rem'} marginBottom={'10rem'} 
@@ -122,13 +118,9 @@ return (isConnected) ? (
               </form>
             
             <Divider mt='10' mb='10'/>
-
               <ChangeSecretNumber />
-          
           </Container>
         </Box>
-       
-        
       </Center>
     </>
   ) : (

@@ -1,5 +1,5 @@
 import Navbar from '@/components/Navbar'
-import { Box, Text, Link } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import SelectGame from './SelectGame'
 
