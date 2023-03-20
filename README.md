@@ -8,6 +8,10 @@ A trustless secret number guessing game built on zkSync. Not even the contract o
 - Only the contract own can change the secret number.
 
 
+
+https://user-images.githubusercontent.com/42366823/226241117-777ab342-231b-4a26-825e-6ca38e537808.mp4
+
+
 ## Getting Started
 
 ### Quick start - Existing Contracts
