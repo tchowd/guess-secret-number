@@ -58,12 +58,11 @@ export default function HardGame() {
       clearTimeout(timerId);
       setMessage('');
       const newTimerId = setTimeout(() => {
-        setMessage('45 seconds have passed. Please resubmit a new guess or refresh the page.');
-      }, 45000);
+        setMessage('60 seconds have passed. Please resubmit a new guess or refresh the page.');
+      }, 60000);
       setTimerId(newTimerId);
       guessRef.current = guess;
     }
-
 
     return () => {
       contract.removeAllListeners();
