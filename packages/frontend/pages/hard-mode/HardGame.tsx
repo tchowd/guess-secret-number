@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import * as ethers from 'ethers'
 import GuessTheNumberGameHard from '../../contracts/GuessTheNumberGameHard.json'
 import { Contract, Web3Provider, Provider, utils } from "zksync-web3";
@@ -28,6 +28,8 @@ export default function HardGame() {
   const [secretNumberHash, setSecretNumberHash] = useState<string>('');
   const [guess, setGuess] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [timerId, setTimerId] = useState<any>(null);
+  const guessRef = useRef<string>('');
 
  
   useEffect(() => {
@@ -52,10 +54,21 @@ export default function HardGame() {
       setMessage(`Sorry ${player}, your guess was incorrect. Try again!`);
     });
 
+    if (guess !== '' && guess !== guessRef.current) {
+      clearTimeout(timerId);
+      setMessage('');
+      const newTimerId = setTimeout(() => {
+        setMessage('45 seconds have passed. Please resubmit a new guess or refresh the page.');
+      }, 45000);
+      setTimerId(newTimerId);
+      guessRef.current = guess;
+    }
+
+
     return () => {
       contract.removeAllListeners();
     };
-  }, []);
+  }, [guess]);
 
   const handleGuessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setGuess(event.target.value);
